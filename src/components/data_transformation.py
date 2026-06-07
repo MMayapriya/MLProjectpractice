@@ -11,6 +11,12 @@ from sklearn.pipeline import Pipeline
 from dataclasses import dataclass
 from src.utils import save_object
 
+"""from src.components.data_ingestion import DataIngestion
+from src.components.data_ingestion import DataIngestionConfig """  
+
+from src.components.model_trainer import ModelTrainer
+from src.components.model_trainer import ModelTrainerConfig
+
 @dataclass
 class DataTransformationConfig:
     preprocessor_obj_file_path: str = os.path.join('artifacts', 'preprocessor.pkl')
@@ -69,6 +75,8 @@ class DataTransformation:
             
             print(X_train.columns)
             logging.info("applying preprocessing object on training and testing dataframe")
+
+
            
             X_train_preprocessed = preprocessing_obj.fit_transform(X_train)
             X_test_preprocessed = preprocessing_obj.transform(X_test)
@@ -84,8 +92,12 @@ class DataTransformation:
             )
 
             return (train_arr, 
-                    test_arr, 
-                    self.data_transformation_config.preprocessor_obj_file_path)
+                    test_arr,
+                    self.data_transformation_config.preprocessor_obj_file_path
+                    )
 
         except Exception as e:
                 raise CustomException(e, sys)
+        
+
+
